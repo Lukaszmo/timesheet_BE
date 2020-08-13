@@ -1,0 +1,47 @@
+security:
+    encoders:
+        App\Entity\User: bcrypt #tutaj podajemy metodę szyfrowania hasła dla klasy Usera
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        database:
+            entity:
+                class: App\Entity\User
+                property: username 
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        api:
+            pattern: ^/api
+            stateless: true
+            anonymous: true
+            json_login:
+                #autentykacja (generowanie tokenu)
+                check_path: /api/token/generate
+                # Handle successfull authentication
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                # Handle authentication failure (invalid credentials, no credentials etc).
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            # symfony sprawdza token przy kazdym request
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+        admin:
+            pattern: ^/
+            anonymous: true
+            form_login:
+                check_path: security_login
+                login_path: security_login
+                default_target_path: admin 
+                use_referer: true #użytkownik po zalogowaniu zostanie przeniesiony do ostatnio odwiedzonej strony
+            
+            logout:
+                path: security_logout
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+#        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY }

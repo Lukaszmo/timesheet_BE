@@ -1,0 +1,11 @@
+<p>Witaj</p><br>
+<p>Pracownik {{employeeFirstname}} {{employeeLastname}}  złożył nowy wniosek urlopowy</p>
+<p>Data od: {{dateFrom}}</p>
+<p>Data do: {{dateTo}}</p>
+{% if comment  is not empty %}
+Komentarz: {{comment}}
+<br>
+{% endif %}
+<br>
+<p>Ta wiadomość została wygenerowana automatycznie. Prosimy na nią nie odpowiadać<p>
+
