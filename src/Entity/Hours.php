@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ApiResource(
- *      attributes={"pagination_enabled"=false,"order"={"date": "DESC"}},
+ *      attributes={"pagination_enabled"=false,"order"={"date": "DESC","timestamp": "DESC"}},
  *      itemOperations={
  *        "get"={},
  *        "delete"={},
@@ -96,6 +96,18 @@ class Hours
      * @Groups({"hours:read", "hours:write"})
      */
     private $overtacceptance;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Groups({"hours:read", "hours:write"})
+     */
+    private $projectCode;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Groups({"hours:read", "hours:write"})
+     */
+    private $taskCode;
 
 
     public function getId(): ?int
@@ -185,6 +197,30 @@ class Hours
     public function setOvertAcceptance(?int $overtacceptance): self
     {
         $this->overtacceptance = $overtacceptance;
+
+        return $this;
+    }
+
+    public function getProjectCode(): ?string
+    {
+        return $this->projectCode;
+    }
+
+    public function setProjectCode(string $projectCode): self
+    {
+        $this->projectCode = $projectCode;
+
+        return $this;
+    }
+
+    public function getTaskCode(): ?string
+    {
+        return $this->taskCode;
+    }
+
+    public function setTaskCode(string $taskCode): self
+    {
+        $this->taskCode = $taskCode;
 
         return $this;
     }
