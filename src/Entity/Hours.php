@@ -109,6 +109,12 @@ class Hours
      */
     private $taskCode;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"hours:read", "hours:write"})
+     */
+    private $comment;
+
 
     public function getId(): ?int
     {
@@ -221,6 +227,18 @@ class Hours
     public function setTaskCode(string $taskCode): self
     {
         $this->taskCode = $taskCode;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }
