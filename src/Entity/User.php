@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ApiResource(
@@ -132,8 +133,7 @@ class User implements UserInterface
     
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hours", mappedBy="userid")
-     *
-     *
+     * @ApiSubresource
      */
     private $hours;
 
@@ -280,6 +280,11 @@ class User implements UserInterface
         $this->managerid = $managerid;
 
         return $this;
+    }
+    
+    public function getHours(): Collection
+    {
+        return $this->hours;
     }
 
    
