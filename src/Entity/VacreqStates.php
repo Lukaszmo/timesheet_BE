@@ -32,12 +32,6 @@ class VacreqStates
      */
     private $description;
     
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VacationRequest", mappedBy="state")
-     *
-     *
-     */
-    private $vacrequest;
 
     public function getId(): ?int
     {

@@ -31,13 +31,7 @@ class VacreqTypes
      * @Groups({"vacrequest:read"})
      */
     private $description;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VacationRequest", mappedBy="type")
-     *
-     *
-     */
-    private $vacrequest;
+   
 
     public function getId(): ?int
     {

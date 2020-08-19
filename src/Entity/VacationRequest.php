@@ -35,7 +35,7 @@ class VacationRequest
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\VacreqStates", inversedBy="vacrequest")
+     * @ORM\ManyToOne(targetEntity="App\Entity\VacreqStates")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"vacrequest:read"})
      */
@@ -50,7 +50,7 @@ class VacationRequest
     private $userid;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\VacreqTypes", inversedBy="vacrequest")
+     * @ORM\ManyToOne(targetEntity="App\Entity\VacreqTypes")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"vacrequest:read"})
      *
