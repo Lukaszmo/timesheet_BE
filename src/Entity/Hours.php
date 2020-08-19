@@ -78,7 +78,7 @@ class Hours
     private $userid;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\HourTypes", inversedBy="hours")
+     * @ORM\ManyToOne(targetEntity="App\Entity\HourTypes")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"hours:read", "hours:write"})
      * 
@@ -98,22 +98,26 @@ class Hours
     private $overtacceptance;
 
     /**
-     * @ORM\Column(type="string", length=10)
-     * @Groups({"hours:read", "hours:write"})
-     */
-    private $projectCode;
-
-    /**
-     * @ORM\Column(type="string", length=10)
-     * @Groups({"hours:read", "hours:write"})
-     */
-    private $taskCode;
-
-    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Groups({"hours:read", "hours:write"})
      */
     private $comment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Projects")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"hours:read", "hours:write"})
+     */
+    private $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tasks")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"hours:read", "hours:write"})
+     */
+    private $task;
+
+    
 
 
     public function getId(): ?int
@@ -207,17 +211,6 @@ class Hours
         return $this;
     }
 
-    public function getProjectCode(): ?string
-    {
-        return $this->projectCode;
-    }
-
-    public function setProjectCode(string $projectCode): self
-    {
-        $this->projectCode = $projectCode;
-
-        return $this;
-    }
 
     public function getTaskCode(): ?string
     {
@@ -242,5 +235,31 @@ class Hours
 
         return $this;
     }
+
+    public function getProject(): ?Projects
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Projects $project): self
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    public function getTask(): ?Tasks
+    {
+        return $this->task;
+    }
+
+    public function setTask(?Tasks $task): self
+    {
+        $this->task = $task;
+
+        return $this;
+    }
+
+   
 
 }
