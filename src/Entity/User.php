@@ -18,9 +18,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  * @ApiResource(
  * 
  *      itemOperations={
- *        "get"={
- *          "access_control"="is_granted('IS_AUTHENTICATED_FULLY')"
- *        }
+ *        "get"={}
  *
  *      },
  *      collectionOperations={"get","post"},
