@@ -34,12 +34,7 @@ class HourTypes
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Hours", mappedBy="type")
-     * 
-     * 
-     */
-    private $hours;
+    
     
     /*public function __construct()
     {

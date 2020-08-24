@@ -30,11 +30,6 @@ class Tasks
      */
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Projects")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $project;
 
     public function getId(): ?int
     {
@@ -65,15 +60,4 @@ class Tasks
         return $this;
     }
 
-    public function getProject(): ?Projects
-    {
-        return $this->project;
-    }
-
-    public function setProject(?Projects $project): self
-    {
-        $this->project = $project;
-
-        return $this;
-    }
 }
