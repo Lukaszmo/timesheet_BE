@@ -18,11 +18,13 @@ class Projects
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"hours:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups({"hours:read"})
      */
     private $code;
 

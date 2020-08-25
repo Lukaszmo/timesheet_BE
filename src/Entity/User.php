@@ -55,12 +55,14 @@ class User implements UserInterface
     
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read"})
      * 
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * 
      */
     private $login;
 
