@@ -11,10 +11,8 @@ class DefaultController extends AbstractController
     /**
      * @Route("/{reactRouting}", name="home", defaults={"reactRouting": null})
      */
-  //  public function index()
-  //  {
-  //      return $this->render('base.html.twig');
- //   }
-   
-
+    public function index()
+    {
+       return $this->render('base.html.twig');
+    }
 }
