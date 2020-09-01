@@ -11,3 +11,4 @@
 ###< lexik/jwt-authentication-bundle ###
 /vendor/
 /node_modules/
+/src/Migrations
