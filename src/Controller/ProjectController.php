@@ -14,7 +14,7 @@ use App\Entity\ProjectUserRel;
 class ProjectController extends AbstractController{
     
     /**
-     * @route("/user_projects/{id}", name="projects")
+     * @route("/user_projects/{id}", name="user_projects", methods={"GET"})
      */
     public function getProjects(Request $request, $id){
         

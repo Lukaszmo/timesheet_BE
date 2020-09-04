@@ -13,7 +13,7 @@ use App\Entity\Tasks;
 class TaskController extends AbstractController{
     
     /**
-     * @route("/project_tasks/{projectId}", name="tasks")
+     * @route("/project_tasks/{projectId}", name="project_tasks", methods={"GET"})
      */
     public function getTasks(Request $request, $projectId){
         
