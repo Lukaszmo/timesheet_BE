@@ -22,29 +22,56 @@ class HoursRepository extends ServiceEntityRepository
     // /**
     //  * @return Hours[] Returns an array of Hours objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function getHoursByType($userid,$datefrom,$dateto)
     {
+        
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        ->select('SUM(h.quantity) as summary','IDENTITY(h.type) as type_id')
+        ->andWhere('h.userid = :val')
+        ->setParameter('val', $userid)
+        ->andWhere('h.date >= :datefrom')
+        ->setParameter('datefrom', $datefrom)
+        ->andWhere('h.date <= :dateto')
+        ->setParameter('dateto', $dateto)
+        ->groupBy('h.type')
+        ->getQuery()
+        ->getResult()
+        ;   
     }
-    */
+    
 
-    /*
-    public function findOneBySomeField($value): ?Hours
+    public function getHoursByProject($userid,$datefrom,$dateto)
     {
+        
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        ->select('SUM(h.quantity) as summary','IDENTITY(h.project) as project_id')
+        ->andWhere('h.userid = :val')
+        ->setParameter('val', $userid)
+        ->andWhere('h.date >= :datefrom')
+        ->setParameter('datefrom', $datefrom)
+        ->andWhere('h.date <= :dateto')
+        ->setParameter('dateto', $dateto)
+        ->groupBy('h.project')
+        ->getQuery()
+        ->getResult()
+        ;   
+    }
+    
+    public function getHoursByTask($userid,$datefrom,$dateto)
+    {
+        
+        return $this->createQueryBuilder('h')
+        ->select('SUM(h.quantity) as summary','IDENTITY(h.task) as task_id')
+        ->andWhere('h.userid = :val')
+        ->setParameter('val', $userid)
+        ->andWhere('h.date >= :datefrom')
+        ->setParameter('datefrom', $datefrom)
+        ->andWhere('h.date <= :dateto')
+        ->setParameter('dateto', $dateto)
+        ->groupBy('h.task')
+        ->getQuery()
+        ->getResult()
         ;
     }
-    */
 }
