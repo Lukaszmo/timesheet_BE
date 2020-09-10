@@ -6,7 +6,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 
 /**
  * @ApiResource(
@@ -15,13 +17,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      }
  *      
  * )
- * @ApiFilter(
- *      SearchFilter::class,
- *      properties={
- *          "userid":"exact"
- *      }
- *      
- * )
+ * @ApiFilter(DateFilter::class, properties={"datefrom"})
+ * @ApiFilter(SearchFilter::class,properties={"user":"exact"})
+ * 
+ * 
  * @ORM\Entity(repositoryClass="App\Repository\VacationRequestRepository")
  */
 class VacationRequest
@@ -40,14 +39,6 @@ class VacationRequest
      * @Groups({"vacrequest:read"})
      */
     private $state;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"vacrequest:read"})
-     */
-    private $userid;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\VacreqTypes")
@@ -86,6 +77,13 @@ class VacationRequest
      * @Groups({"vacrequest:read"})
      */
     private $timestamp;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="vacationRequests")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"vacrequest:read"})
+     */
+    private $user;
     
     
 
@@ -107,14 +105,14 @@ class VacationRequest
     }
 
 
-    public function getUserid(): ?User
+    public function getUser(): ?User
     {
-        return $this->userid;
+        return $this->user;
     }
 
-    public function setUserid(?User $userid): self
+    public function setUser(?User $user): self
     {
-        $this->userid = $userid;
+        $this->user = $user;
 
         return $this;
     }

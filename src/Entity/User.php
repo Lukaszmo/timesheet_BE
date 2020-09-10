@@ -126,16 +126,16 @@ class User implements UserInterface
     private $managerid;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\VacationRequest", mappedBy="userid")
-     *
-     */
-    private $user;
-    
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hours", mappedBy="userid")
      * @ApiSubresource
      */
     private $hours;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VacationRequest", mappedBy="user")
+     * @ApiSubresource
+     */
+    private $vacationRequests;
 
     public function __construct()
     {
@@ -285,6 +285,14 @@ class User implements UserInterface
     public function getHours(): Collection
     {
         return $this->hours;
+    }
+
+    /**
+     * @return Collection|VacationRequest[]
+     */
+    public function getVacationRequests(): Collection
+    {
+        return $this->vacationRequests;
     }
 
    
