@@ -12,6 +12,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
+ *      attributes={"order"={"datefrom": "DESC"}},
  *      normalizationContext={
  *          "groups"={"vacrequest:read"}
  *      }
