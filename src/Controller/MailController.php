@@ -8,19 +8,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use App\Entity\User;
-use App\Entity\VacationRequest;
+use App\Repository\UserRepository;
 
 
 class MailController extends AbstractController{
     
-    /**
-     * @route("/mail", name="mail")
-     */
-    public function mail(Request $request, \Swift_Mailer $mailer)
+    public function __construct(\Swift_Mailer $mailer, UserRepository $userRep)
     {
-        
-        if ($request->isMethod('POST')){
+        $this->mailer=$mailer;
+        $this->userRep=$userRep;
+    }
+    
+    /**
+     * @route("vacation_requests/mail", name="vacation_requests_mail", methods={"POST"})
+     */
+    public function mail(Request $request)
+    {
+            // wysłanie wniosku urlopowego do przełożonego
         
             $postData = [];
             if($content = $request->getContent()){
@@ -28,11 +32,11 @@ class MailController extends AbstractController{
                 $postData = json_decode($content,true);
             }
         
-            $user = $this->getDoctrine()->getRepository(User::class)->find($postData['userid']);
+            $user = $this->userRep->find($postData['user']);
             $employeeFirstname = $user->getFirstname();
             $employeeLastname = $user->getLastname();
             $managerId = $user->getManagerId();
-            $manager = $this->getDoctrine()->getRepository(User::class)->find($managerId);
+            $manager = $this->userRep->find($managerId);
             $managerEmail = $manager->getEmail();
         
             $message = (new \Swift_Message('Nowy wniosek urlopowy'))
@@ -46,9 +50,9 @@ class MailController extends AbstractController{
                     'comment' => $postData['comment']
                 )),'text/html');
           
-            $mailer->send($message);  
+            $this->mailer->send($message);  
         
             return new JsonResponse(null, Response::HTTP_NO_CONTENT);
-        }
+        
     } 
 }
