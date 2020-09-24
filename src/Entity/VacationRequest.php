@@ -75,6 +75,7 @@ class VacationRequest
 
     /**
      * @ORM\Column(type="datetime")
+     * @ORM\Version
      * @Groups({"vacrequest:read"})
      */
     private $timestamp;
