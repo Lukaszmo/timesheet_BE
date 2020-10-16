@@ -117,6 +117,12 @@ class Hours
      */
     private $task;
 
+    /**
+     * @ORM\Column(type="time")
+     * @Groups({"hours:read", "hours:write"})
+     */
+    private $time;
+
     
 
 
@@ -256,6 +262,18 @@ class Hours
     public function setTask(?Tasks $task): self
     {
         $this->task = $task;
+
+        return $this;
+    }
+
+    public function getTime(): ?\DateTimeInterface
+    {      
+        return $this->time;
+    }
+
+    public function setTime(\DateTimeInterface $time): self
+    {
+        $this->time = $time;
 
         return $this;
     }
