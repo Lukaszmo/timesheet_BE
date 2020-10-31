@@ -85,4 +85,47 @@ class HoursController extends AbstractController
         
         return $response;
     }
+    
+    /**
+     * @route("/hours/range", name="range", methods={"GET"})
+     */
+    public function getHoursRange(Request $request){
+        
+        // sekcja zwraca rok w którym został zarejestrowany pierwszy i ostatni rekord
+        
+        $first = $this->hoursRep->getFirstRegisteredDate()[0]['date'];
+        $last = $this->hoursRep->getLastRegisteredDate()[0]['date'];
+        
+        $date=[];
+        $date['first']=date_format($first, 'Y');
+        $date['last']=date_format($last, 'Y');
+                
+        $response = new JsonResponse($date);
+        
+        return $response; 
+    }
+    
+    /**
+     * @route("/hours/monthly_report/{id}", name="hours_monthly_report", methods={"GET"})
+     */
+    public function getHoursForMonthlyReport(Request $request, $id){
+        
+        // pobiera dane do raportu miesięcznego
+        
+        $datefrom=$request->query->get('datefrom');
+        $dateto=$request->query->get('dateto');
+        $type=1;
+        $resp=[];
+        
+        $hours = $this->hoursRep->getHoursForMonthlyReport($id, $datefrom, $dateto, $type);
+        
+        foreach($hours as $key => $value) {
+            $day = date_format($value['date'], 'Y-m-j');
+            $resp[$day]['summary'] = $value['summary'];
+        }
+        
+        $response = new JsonResponse($resp);
+        
+        return $response;
+    } 
 }

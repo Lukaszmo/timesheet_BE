@@ -74,4 +74,47 @@ class HoursRepository extends ServiceEntityRepository
         ->getResult()
         ;
     }
+    
+    public function getHoursForMonthlyReport($userid,$datefrom,$dateto,$type)
+    {
+        
+        return $this->createQueryBuilder('h')
+        ->select('h.date','SUM(h.quantity) as summary')
+        ->andWhere('h.userid = :userid')
+        ->setParameter('userid', $userid)
+        ->andWhere('h.date >= :datefrom')
+        ->setParameter('datefrom', $datefrom)
+        ->andWhere('h.date <= :dateto')
+        ->setParameter('dateto', $dateto)
+        ->andWhere('h.type = :type')
+        ->setParameter('type', $type)
+        ->groupBy('h.date')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
+    public function getFirstRegisteredDate()
+    {
+        
+        return $this->createQueryBuilder('h')
+        ->select('h.date')
+        ->orderBy('h.date')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
+    public function getLastRegisteredDate()
+    {
+        
+        return $this->createQueryBuilder('h')
+        ->select('h.date')
+        ->orderBy('h.date','DESC')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }
