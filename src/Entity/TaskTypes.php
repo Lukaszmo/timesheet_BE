@@ -3,20 +3,18 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\TasksRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TaskTypesRepository")
  */
-class Tasks
+class TaskTypes
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"hours:read"})
      */
     private $id;
 
@@ -26,17 +24,9 @@ class Tasks
     private $code;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Groups({"hours:read"})
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $description;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TaskTypes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $type;
-
 
     public function getId(): ?int
     {
@@ -60,23 +50,10 @@ class Tasks
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
-
-    public function getType(): ?TaskTypes
-    {
-        return $this->type;
-    }
-
-    public function setType(?TaskTypes $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
 }
