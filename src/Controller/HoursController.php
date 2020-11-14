@@ -127,5 +127,35 @@ class HoursController extends AbstractController
         $response = new JsonResponse($resp);
         
         return $response;
-    } 
+    }
+    
+    /**
+     * @route("/hours/project_report", name="hours_project_report", methods={"GET"})
+     */
+    public function getHoursForProjectReport(Request $request, TasksRepository $tasksRep){
+        
+        // pobiera dane do raportu projekt - raport prezentuje procentowy udział w projekcie według typu zadań
+        
+        $datefrom=$request->query->get('datefrom');
+        $dateto=$request->query->get('dateto');
+        $projectId=$request->query->get('projectId');
+        
+        $hours = $this->hoursRep->getHoursForProjectReport($datefrom, $dateto, $projectId);
+        $projectSum = $this->hoursRep->getSummaryHoursForProjectReport($datefrom, $dateto, $projectId);
+        $projectSum = $projectSum[0]['summary'];
+        
+        foreach($hours as $key => $value) {
+            
+            $taskId = $hours[$key]['task_id'];
+            $type=$tasksRep->findOneBy(array('id' => $taskId))->getType()->getDescription();
+            $hours[$key]['description']=$type;
+            $percent=($hours[$key]['summary']/$projectSum)*100;
+            $hours[$key]['percent']=number_format($percent,2);
+          
+        }     
+        
+        $response = new JsonResponse($hours);
+        
+        return $response;
+    }
 }

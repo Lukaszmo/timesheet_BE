@@ -117,4 +117,37 @@ class HoursRepository extends ServiceEntityRepository
         ->getResult()
         ;
     }
+    
+    public function getHoursForProjectReport($datefrom,$dateto,$projectId)
+    {
+        
+        return $this->createQueryBuilder('h')
+        ->select('SUM(h.quantity) as summary','IDENTITY(h.task) as task_id')
+        ->andWhere('h.project = :projectId')
+        ->setParameter('projectId', $projectId)
+        ->andWhere('h.date >= :datefrom')
+        ->setParameter('datefrom', $datefrom)
+        ->andWhere('h.date <= :dateto')
+        ->setParameter('dateto', $dateto)
+        ->groupBy('h.task')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
+    public function getSummaryHoursForProjectReport($datefrom,$dateto,$projectId)
+    {
+        
+        return $this->createQueryBuilder('h')
+        ->select('SUM(h.quantity) as summary')
+        ->andWhere('h.project = :projectId')
+        ->setParameter('projectId', $projectId)
+        ->andWhere('h.date >= :datefrom')
+        ->setParameter('datefrom', $datefrom)
+        ->andWhere('h.date <= :dateto')
+        ->setParameter('dateto', $dateto)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }

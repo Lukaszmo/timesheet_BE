@@ -34,6 +34,7 @@ class Tasks
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TaskTypes")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"hours:read"})
      */
     private $type;
 
