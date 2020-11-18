@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Repository\HoursRepository;
@@ -93,8 +94,13 @@ class HoursController extends AbstractController
         
         // sekcja zwraca rok w którym został zarejestrowany pierwszy i ostatni rekord
         
-        $first = $this->hoursRep->getFirstRegisteredDate()[0]['date'];
-        $last = $this->hoursRep->getLastRegisteredDate()[0]['date'];
+        $first = $this->hoursRep->getFirstRegisteredDate();
+        $last = $this->hoursRep->getLastRegisteredDate();
+        
+        $first = isset($first[0]['date']) ? $first[0]['date'] : null;
+        $last = isset($last[0]['date']) ? $last[0]['date'] : null;
+       
+        if (is_null($first) || is_null($last)) return new JsonResponse(null, Response::HTTP_NO_CONTENT);
         
         $date=[];
         $date['first']=date_format($first, 'Y');
