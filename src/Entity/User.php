@@ -67,12 +67,6 @@ class User implements UserInterface
     private $login;
 
     /**
-     * @ORM\Column(type="string", length=15)
-     * @Groups({"read"})
-     */
-    private $userclass;
-
-    /**
      * @ORM\Column(type="integer")
      * @Groups({"read"})
      */
@@ -155,18 +149,6 @@ class User implements UserInterface
     public function setLogin(string $login): self
     {
         $this->login = $login;
-
-        return $this;
-    }
-
-    public function getUserclass(): ?string
-    {
-        return $this->userclass;
-    }
-
-    public function setUserclass(string $userclass): self
-    {
-        $this->userclass = $userclass;
 
         return $this;
     }
