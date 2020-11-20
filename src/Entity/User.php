@@ -35,7 +35,6 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *      
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username")
- * @UniqueEntity("login")
  * @UniqueEntity("email")
  * @UniqueEntity("regnum")
  */
