@@ -61,12 +61,6 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     * 
-     */
-    private $login;
-
-    /**
      * @ORM\Column(type="integer")
      * @Groups({"read"})
      */
@@ -110,6 +104,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="simple_array")
+     * @Groups({"read"})
      */
     private $roles = [];
 
@@ -139,18 +134,6 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
-
-    public function setLogin(string $login): self
-    {
-        $this->login = $login;
-
-        return $this;
     }
 
     public function getRegnum(): ?int
@@ -232,7 +215,8 @@ class User implements UserInterface
 
     public function getRoles(): array
     {
-        return self::DEFAULT_ROLE;
+        //return self::DEFAULT_ROLE;
+        return $this->roles;
     }
     
     public function setRoles(array $roles)
