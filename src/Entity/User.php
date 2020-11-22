@@ -127,6 +127,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"read"})
      */
     private $active;
 
