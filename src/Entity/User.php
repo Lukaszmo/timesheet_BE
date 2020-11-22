@@ -125,6 +125,11 @@ class User implements UserInterface
      */
     private $vacationRequests;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
     public function __construct()
     {
         $this->vacationRequests = new ArrayCollection();
@@ -258,6 +263,18 @@ class User implements UserInterface
     public function getVacationRequests(): Collection
     {
         return $this->vacationRequests;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
     }
 
    
