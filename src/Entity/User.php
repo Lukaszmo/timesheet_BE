@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
@@ -26,12 +27,8 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *          "groups"="read"
  *      }
  * )
- * @ApiFilter(
- *      SearchFilter::class,
- *      properties={
- *          "managerid":"exact"
- *      }
- * )
+ * @ApiFilter(SearchFilter::class, properties={"managerid":"exact"})
+ * @ApiFilter(BooleanFilter::class, properties={"active"})
  *      
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username")
