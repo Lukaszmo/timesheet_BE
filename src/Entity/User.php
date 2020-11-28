@@ -19,7 +19,8 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  * @ApiResource(
  * 
  *      itemOperations={
- *        "get"={}
+ *        "get"={},
+ *        "put"={}
  *
  *      },
  *      collectionOperations={"get","post"},
