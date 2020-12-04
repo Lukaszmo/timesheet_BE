@@ -126,7 +126,7 @@ class HoursController extends AbstractController
         $hours = $this->hoursRep->getHoursForMonthlyReport($id, $datefrom, $dateto, $type);
         
         foreach($hours as $key => $value) {
-            $day = date_format($value['date'], 'Y-m-j');
+            $day = date_format($value['date'], 'Y-m-d');
             $resp[$day]['summary'] = $value['summary'];
         }
         
