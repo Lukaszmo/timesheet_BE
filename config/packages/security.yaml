@@ -26,6 +26,7 @@ security:
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
+            user_checker: App\Security\UserChecker
 
         admin:
             pattern: ^/
