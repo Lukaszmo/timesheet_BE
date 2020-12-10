@@ -10,6 +10,7 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/{reactRouting}", name="home", defaults={"reactRouting": null})
+     * @Route("/panel-admina/{reactRouting}", name="panel-admina")
      */
   /*  public function index()
     {
