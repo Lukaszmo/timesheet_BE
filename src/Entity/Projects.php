@@ -10,7 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * 
+ *      normalizationContext={
+ *          "groups"={"projects:read"}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\ProjectsRepository")
  *
  * @UniqueEntity("code")
@@ -22,18 +27,21 @@ class Projects
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"hours:read"})
+     * @Groups({"projects:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Groups({"hours:read"})
+     * @Groups({"projects:read"})
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"hours:read"})
+     * @Groups({"projects:read"})
      *
      */
     private $description;
@@ -41,11 +49,13 @@ class Projects
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Clients", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"projects:read"})
      */
     private $client;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"projects:read"})
      */
     private $active;
 
