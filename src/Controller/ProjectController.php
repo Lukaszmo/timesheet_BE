@@ -18,17 +18,21 @@ class ProjectController extends AbstractController{
      */
     public function getProjects(Request $request, $id){
         
-        //Zwraca listę projektów przypisanych do użytkownika
+        //Zwraca listę aktywnych projektów przypisanych do użytkownika
         
         $projectList = $this->getDoctrine()->getRepository(ProjectUserRel::class)->findBy(array('user' => $id));
         
         $list = null;
-        
-        foreach($projectList as $key => $value) {
+        $idx=0;
+       
+        foreach($projectList as $value) {
             
-            $list[$key]['id'] = $value->getProject()->getId();
-            $list[$key]['code'] = $value->getProject()->getCode();
-            $list[$key]['description'] = $value->getProject()->getDescription();
+            if (!$value->getProject()->getActive()) continue;
+            
+            $list[$idx]['id'] = $value->getProject()->getId();
+            $list[$idx]['code'] = $value->getProject()->getCode();
+            $list[$idx]['description'] = $value->getProject()->getDescription();
+            $idx++;
         }
         
         $response = new JsonResponse($list);
