@@ -3,9 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ProjectUserRelRepository")
+ * @ORM\Table(
+ *      name="project_user_rel",
+ *      uniqueConstraints={@ORM\UniqueConstraint(columns={"project_id", "user_id"})}
+ * )
  */
 class ProjectUserRel
 {
@@ -27,6 +34,11 @@ class ProjectUserRel
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
 
     public function getId(): ?int
     {
@@ -53,6 +65,18 @@ class ProjectUserRel
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

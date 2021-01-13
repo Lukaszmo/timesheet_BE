@@ -20,7 +20,7 @@ class ProjectController extends AbstractController{
         
         //Zwraca listę aktywnych projektów przypisanych do użytkownika
         
-        $projectList = $this->getDoctrine()->getRepository(ProjectUserRel::class)->findBy(array('user' => $id));
+        $projectList = $this->getDoctrine()->getRepository(ProjectUserRel::class)->findBy(array('user' => $id, 'active' => true));
         
         $list = null;
         $idx=0;
