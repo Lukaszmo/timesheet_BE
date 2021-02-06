@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ApiResource(
@@ -16,6 +18,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          "groups"={"projects:read"}
  *      }
  * )
+ * @ApiFilter(BooleanFilter::class, properties={"active"})
+ * 
  * @ORM\Entity(repositoryClass="App\Repository\ProjectsRepository")
  *
  * @UniqueEntity("code")
@@ -27,7 +31,7 @@ class Projects
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"hours:read"})
-     * @Groups({"projects:read"})
+     * @Groups({"projects:read","projectUserRel:read"})
      */
     private $id;
 
@@ -41,7 +45,7 @@ class Projects
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"hours:read"})
-     * @Groups({"projects:read"})
+     * @Groups({"projects:read","projectUserRel:read"})
      *
      */
     private $description;

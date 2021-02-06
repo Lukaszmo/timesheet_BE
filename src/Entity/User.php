@@ -46,7 +46,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read","hours:read","vacrequest:read"})
+     * @Groups({"read","hours:read","vacrequest:read","projectUserRel:read"})
      */
     private $id;
     
@@ -75,14 +75,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=30)
      * @Groups({"read"})
-     * @Groups({"vacrequest:read","hours:read"})
+     * @Groups({"vacrequest:read","hours:read","projectUserRel:read"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=40)
      * @Groups({"read"})
-     * @Groups({"vacrequest:read","hours:read"})
+     * @Groups({"vacrequest:read","hours:read","projectUserRel:read"})
      */
     private $lastname;
 
