@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
@@ -15,6 +16,7 @@ class TaskTypes
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"tasks:read"})
      */
     private $id;
 
@@ -25,6 +27,7 @@ class TaskTypes
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
+     * @Groups({"tasks:read"})
      */
     private $description;
 

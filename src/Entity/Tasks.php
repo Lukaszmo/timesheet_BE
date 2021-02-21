@@ -8,7 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * 
+ *      normalizationContext={
+ *          "groups"={"tasks:read"}
+ *      }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\TasksRepository")
  * 
  * @UniqueEntity("code")
@@ -19,25 +24,26 @@ class Tasks
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"hours:read"})
+     * @Groups({"hours:read","tasks:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups({"tasks:read"})
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"hours:read"})
+     * @Groups({"hours:read","tasks:read"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TaskTypes")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"hours:read"})
+     * @Groups({"hours:read","tasks:read"})
      */
     private $type;
 
