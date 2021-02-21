@@ -47,6 +47,12 @@ class Tasks
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="boolean")
+     * @Groups({"tasks:read"})
+     */
+    private $active;
+
 
     public function getId(): ?int
     {
@@ -85,6 +91,18 @@ class Tasks
     public function setType(?TaskTypes $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }
