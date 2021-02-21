@@ -22,14 +22,18 @@ class TaskController extends AbstractController{
         $taskList = $this->getDoctrine()->getRepository(ProjectTaskRel::class)->findBy(array('project' => $projectId));
         
         $list = null;
+        $idx=0;
         
-        foreach($taskList as $key => $value) {
+        foreach($taskList as $value) {
+            
+            if (!$value->getTask()->getActive()) continue;
             
             $taskId = $value->getTask()->getId();
             $task = $this->getDoctrine()->getRepository(Tasks::class)->findOneBy(array('id' => $taskId));
-            $list[$key]['id'] = $taskId;
-            $list[$key]['code'] = $task->getCode();
-            $list[$key]['description'] = $task->getDescription();
+            $list[$idx]['id'] = $taskId;
+            $list[$idx]['code'] = $task->getCode();
+            $list[$idx]['description'] = $task->getDescription();
+            $idx++;
         } 
         
         $response = new JsonResponse($list);
