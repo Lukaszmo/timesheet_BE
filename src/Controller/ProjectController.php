@@ -35,6 +35,10 @@ class ProjectController extends AbstractController{
             $idx++;
         }
         
+        usort($list, function($a,$b) {
+            return strtoupper($a['description']) <=> strtoupper($b['description']);
+        });
+        
         $response = new JsonResponse($list);
         
         return $response;
