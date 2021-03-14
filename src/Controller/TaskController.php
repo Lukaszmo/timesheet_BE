@@ -19,7 +19,7 @@ class TaskController extends AbstractController{
         
         //Zwraca listę zadań przypisanych do projektu
         
-        $taskList = $this->getDoctrine()->getRepository(ProjectTaskRel::class)->findBy(array('project' => $projectId));
+        $taskList = $this->getDoctrine()->getRepository(ProjectTaskRel::class)->findBy(array('project' => $projectId,'active' => true));
         
         $list = null;
         $idx=0;

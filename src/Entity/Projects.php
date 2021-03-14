@@ -31,7 +31,7 @@ class Projects
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"hours:read"})
-     * @Groups({"projects:read","projectUserRel:read"})
+     * @Groups({"projects:read","projectUserRel:read","projectTaskRel:read"})
      */
     private $id;
 
@@ -45,7 +45,7 @@ class Projects
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"hours:read"})
-     * @Groups({"projects:read","projectUserRel:read"})
+     * @Groups({"projects:read","projectUserRel:read","projectTaskRel:read"})
      *
      */
     private $description;
