@@ -50,7 +50,7 @@ class ProjectController extends AbstractController{
     }
     
     /**
-     * @route("/project_task_add", name="project_task_add", methods={"POST"})
+     * @route("/project/task_add", name="project_task_add", methods={"POST"})
      */
     public function addTaskToProject(Request $request){
         
