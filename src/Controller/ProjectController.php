@@ -7,46 +7,35 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\ProjectUserRel;
 use App\Entity\ProjectTaskRel;
 use App\Entity\Projects;
 use App\Entity\Tasks;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use App\Service\Project;
+
 
 
 class ProjectController extends AbstractController{
+    
+    private $project;
+    
+    
+    public function __construct(Project $project){
+        
+        $this->project = $project;
+    }
     
     /**
      * @route("/user_projects/{id}", name="user_projects", methods={"GET"})
      */
     public function getProjects(Request $request, $id){
         
-        //Zwraca listę aktywnych projektów przypisanych do użytkownika
+        $projectList = $this->project->getProjects($id);
         
-        $projectList = $this->getDoctrine()->getRepository(ProjectUserRel::class)->findBy(array('user' => $id, 'active' => true));
-        
-        $list = null;
-        $idx=0;
-       
-        foreach($projectList as $value) {
-            
-            if (!$value->getProject()->getActive()) continue;
-            
-            $list[$idx]['id'] = $value->getProject()->getId();
-            $list[$idx]['code'] = $value->getProject()->getCode();
-            $list[$idx]['description'] = $value->getProject()->getDescription();
-            $idx++;
-        }
-        
-        usort($list, function($a,$b) {
-            return strtoupper($a['description']) <=> strtoupper($b['description']);
-        });
-        
-        $response = new JsonResponse($list);
+        $response = new JsonResponse($projectList);
         
         return $response;
-        
     }
     
     /**
