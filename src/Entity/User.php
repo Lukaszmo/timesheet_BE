@@ -129,6 +129,12 @@ class User implements UserInterface
      */
     private $active;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $passwordTimestamp;
+
+
     public function __construct()
     {
         $this->vacationRequests = new ArrayCollection();
@@ -276,6 +282,17 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPasswordTimestamp(): ?\DateTimeInterface
+    {
+        return $this->passwordchangedate;
+    }
+
+    public function setPasswordTimestamp(\DateTimeInterface $passwordchangedate): self
+    {
+        $this->passwordchangedate = $passwordchangedate;
+
+        return $this;
+    } 
    
 
 }
