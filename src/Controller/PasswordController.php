@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entity\User;
+use Symfony\Component\Validator\Tests\Fixtures\ToString;
 
 
 class PasswordController extends AbstractController{
@@ -46,7 +47,7 @@ class PasswordController extends AbstractController{
         }
    
         $user->setPassword($this->userPasswordEncoder->encodePassword($user,$newPassword));
-        $user->setPasswordTimestamp(new \DateTime());
+        $user->setPasswordChangeDate(new \DateTime("now"));
         $this->em->flush();
    
         $response = new JsonResponse(null, Response::HTTP_OK);

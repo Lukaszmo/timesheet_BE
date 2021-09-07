@@ -130,9 +130,9 @@ class User implements UserInterface
     private $active;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $passwordTimestamp;
+    private $passwordChangeDate;
 
 
     public function __construct()
@@ -282,14 +282,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPasswordTimestamp(): ?\DateTimeInterface
+    public function getPasswordChangeDate()
     {
-        return $this->passwordchangedate;
+        return $this->passwordChangeDate;
     }
 
-    public function setPasswordTimestamp(\DateTimeInterface $passwordchangedate): self
+    public function setPasswordChangeDate($passwordChangeDate)
     {
-        $this->passwordchangedate = $passwordchangedate;
+        $this->passwordChangeDate = $passwordChangeDate;
 
         return $this;
     } 
