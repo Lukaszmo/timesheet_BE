@@ -46,7 +46,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read","hours:read","vacrequest:read","projectUserRel:read"})
+     * @Groups({"read","hours:read","vacrequest:read","projectUserRel:read","assignedTasks:read"})
      */
     private $id;
     
@@ -134,10 +134,16 @@ class User implements UserInterface
      */
     private $passwordChangeDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AssignedTasks", mappedBy="user")
+     */
+    private $assignedTasks;
+
 
     public function __construct()
     {
         $this->vacationRequests = new ArrayCollection();
+        $this->assignedTasks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,6 +296,37 @@ class User implements UserInterface
     public function setPasswordChangeDate($passwordChangeDate)
     {
         $this->passwordChangeDate = $passwordChangeDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AssignedTasks[]
+     */
+    public function getAssignedTasks(): Collection
+    {
+        return $this->assignedTasks;
+    }
+
+    public function addAssignedTask(AssignedTasks $assignedTask): self
+    {
+        if (!$this->assignedTasks->contains($assignedTask)) {
+            $this->assignedTasks[] = $assignedTask;
+            $assignedTask->setUserid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedTask(AssignedTasks $assignedTask): self
+    {
+        if ($this->assignedTasks->contains($assignedTask)) {
+            $this->assignedTasks->removeElement($assignedTask);
+            // set the owning side to null (unless already changed)
+            if ($assignedTask->getUserid() === $this) {
+                $assignedTask->setUserid(null);
+            }
+        }
 
         return $this;
     } 

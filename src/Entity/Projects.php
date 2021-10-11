@@ -31,7 +31,7 @@ class Projects
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"hours:read"})
-     * @Groups({"projects:read","projectUserRel:read","projectTaskRel:read"})
+     * @Groups({"projects:read","projectUserRel:read","projectTaskRel:read","assignedTasks:read"})
      */
     private $id;
 
@@ -62,6 +62,16 @@ class Projects
      * @Groups({"projects:read"})
      */
     private $active;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AssignedTasks", mappedBy="project")
+     */
+    private $assignedTasks;
+
+    public function __construct()
+    {
+        $this->assignedTasks = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -114,6 +124,37 @@ class Projects
     {
         $this->active = $active;
         
+        return $this;
+    }
+
+    /**
+     * @return Collection|AssignedTasks[]
+     */
+    public function getAssignedTasks(): Collection
+    {
+        return $this->assignedTasks;
+    }
+
+    public function addAssignedTask(AssignedTasks $assignedTask): self
+    {
+        if (!$this->assignedTasks->contains($assignedTask)) {
+            $this->assignedTasks[] = $assignedTask;
+            $assignedTask->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedTask(AssignedTasks $assignedTask): self
+    {
+        if ($this->assignedTasks->contains($assignedTask)) {
+            $this->assignedTasks->removeElement($assignedTask);
+            // set the owning side to null (unless already changed)
+            if ($assignedTask->getProject() === $this) {
+                $assignedTask->setProject(null);
+            }
+        }
+
         return $this;
     }
     
