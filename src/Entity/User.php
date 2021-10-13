@@ -75,14 +75,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=30)
      * @Groups({"read"})
-     * @Groups({"vacrequest:read","hours:read","projectUserRel:read"})
+     * @Groups({"vacrequest:read","hours:read","projectUserRel:read","assignedTasks:read"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=40)
      * @Groups({"read"})
-     * @Groups({"vacrequest:read","hours:read","projectUserRel:read"})
+     * @Groups({"vacrequest:read","hours:read","projectUserRel:read","assignedTasks:read"})
      */
     private $lastname;
 
