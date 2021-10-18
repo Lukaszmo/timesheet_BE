@@ -15,3 +15,4 @@ Backend:
 Frontend:
 - React JS
 - Semantic UI
+[Link to repository] https://github.com/Lukaszmo/timesheet_FE_React
